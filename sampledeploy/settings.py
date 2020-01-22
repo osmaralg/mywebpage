@@ -28,7 +28,8 @@ DB_PSW = os.environ.get('DB_PSW')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://osmaralg1.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://osmaralg1.herokuapp.com',
+                 'https://osmaralg1.herokuapp.com/', 'osmaralg1.herokuapp.com']
 
 # Application definition
 
