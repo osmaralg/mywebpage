@@ -1,9 +1,6 @@
 <html>
   <head>
-  </head>
-
-  <body>
-        {% block content %}
+            {% block content %}
               {% load static %}
               <link rel="stylesheet" href="{% static 'style/style.css' %}"> 
 
@@ -37,7 +34,8 @@
             <a href="{% url 'contact' %}">Contact</a>
           </div>
         {% endblock %}
-   </body>
+  </head>
+
 </html>
 
 

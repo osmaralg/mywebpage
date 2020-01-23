@@ -7,6 +7,10 @@
 <meta charset="utf-8">
 <style>
 
+body {
+  align-content: "center";
+}
+
 path {
   fill: #ddd;
   fill-opacity: .8;
@@ -18,8 +22,38 @@ line {
   stroke: #999;
 }
 
+.selected {
+  fill: red;
+}
+
+/* Style for Custom Tooltip */
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: white;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+
+
 </style>
-<body>
+<body> 
+<div style="align-content: center">
+<h3> Traveling Sales Person Problem </h3>
+<p> The travelling salesman problem (also called the travelling salesperson problem[1] or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
+
+The travelling purchaser problem and the vehicle routing problem are both generalizations of TSP.
+
+In the theory of computational complexity, the decision version of the TSP (where given a length L, the task is to decide whether the graph has a tour of at most L) belongs to the class of NP-complete problems. Thus, it is possible that the worst-case running time for any algorithm for the TSP increases superpolynomially (but no more than exponentially) with the number of cities.
+</p>
+</div>
+<div align="center" id="map_container">
+
 <script src="{% static 'javascript/d3.v3.min.js' %}" charset="utf-8"></script>
 
 <script src="{% static 'javascript/topojson.v1.min.js' %}"></script>
@@ -35,12 +69,19 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+// Append Div for tooltip to SVG
+var div = d3.select("body")
+        .append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+
 d3.json("{% static 'javascript/us.json' %}", function(error, us) {
   if (error) throw error;
 
   var states = topojson.feature(us, us.objects.states),
-      nodes = [],
-      links = [];
+      nodes = [];
+  links = [];
 
   states.features.forEach(function(d, i) {
     if (d.id === 2 || d.id === 15 || d.id === 72) return; // lower 48
@@ -52,12 +93,9 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
     nodes.push(centroid);
   });
 
-  d3.geom.voronoi().links(nodes).forEach(function(link) {
-    var dx = link.source.x - link.target.x,
-        dy = link.source.y - link.target.y;
-    link.distance = Math.sqrt(dx * dx + dy * dy);
-    links.push(link);
-  });
+  var selected_states = [];
+  /***
+
 
   force
       .gravity(0)
@@ -65,24 +103,34 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
       .links(links)
       .linkDistance(function(d) { return d.distance; })
       .start();
+  ***/
 
-  var link = svg.selectAll("line")
-      .data(links)
-    .enter().append("line")
-      .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
 
+  
   var node = svg.selectAll("g")
-      .data(nodes)
+    .data(nodes)
     .enter().append("g")
       .attr("transform", function(d) { return "translate(" + -d.x + "," + -d.y + ")"; })
       .call(force.drag)
     .append("path")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-      .attr("d", function(d) { return path(d.feature); });
+      .attr("d", function(d) { return path(d.feature); })
+    .on('click', function(d, i){
+      d3.select(this)
+        .style('fill', 'orange')
+        selected_states.push(nodes[i])
+        console.log("this", this)
+        console.log("selected_states",  selected_states)
+        console.log("nodes", nodes[i])
+        drawLine(selected_states)
 
+        console.log(generatePermutations([1,2,3]));
+        console.log(generateCityRoutes([0,1,2,3]));
+    })
+
+  var nodeselected = svg.select("g").style("color", "blue")
+
+  
   force.on("tick", function(e) {
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
@@ -93,7 +141,68 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
       return "translate(" + d.x + "," + d.y + ")";
     });
   });
+  
+
 });
+
+
+
+function drawLine(nodes){
+
+    d3.geom.voronoi().links(nodes).forEach(function(link) {
+    var dx = link.source.x - link.target.x,
+        dy = link.source.y - link.target.y;
+    link.distance = Math.sqrt(dx * dx + dy * dy);
+    links.push(link);
+  });
+
+  var link = svg.selectAll("line")
+  .data(links)
+  .enter().append("line")
+    .attr("x1", function(d) { return d.source.x; })
+    .attr("y1", function(d) { return d.source.y; })
+    .attr("x2", function(d) { return d.target.x; })
+    .attr("y2", function(d) { return d.target.y; });
+
+}
+
+
+function generatePermutations(Arr){
+  var permutations = [];
+  var A = Arr.slice();
+
+  function swap(a,b){
+    var tmp = A[a];
+    A[a] = A[b];
+    A[b] = tmp;
+  }
+
+  function generate(n, A){
+    if (n == 1){
+      permutations.push(A.slice());
+    } else {
+      for(var i = 0; i <= n-1; i++) {
+        generate(n-1, A);
+        swap(n % 2 == 0 ? i : 0 ,n-1);
+      }
+    }
+  }
+  generate(A.length, A);
+  return permutations;
+}
+
+
+function generateCityRoutes(cities){
+  var pems = generatePermutations(cities.slice(1));
+  for (var i = 0; i < pems.length; i++){
+    pems[i].unshift(cities[0]);
+    pems[i].push(cities[0]);
+  }
+  return pems;
+}
+
+
+
 
 </script>
 {% endblock %}
