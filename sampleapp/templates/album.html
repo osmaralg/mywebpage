@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+
+ <link rel="stylesheet" href="{%static 'style/style.css' %}"> 
+
+<head>
+  <title>Django App Deployment Demo Osmar</title>
+</head>
+
+<body>
+  <div align="center">
+    <p><h2>Django App Deployment Demo Osmar</h2></p>
+    <div class="navbar">
+  <a href="#home">Home</a>
+  <div class="subnav">
+    <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#company">Academic</a>
+      <a href="#team">Profesional</a>
+      <a href='#personal'>Personal</a>
+    </div>
+  </div> 
+  <div class="subnav">
+    <button class="subnavbtn">Projects <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#bring">Algorithm Design</a>
+      <a href="#deliver">Predictive Modeling</a>
+      <a href="#package">Optimization Models</a>
+      <a href="#express">Machine Learning</a>
+    </div>
+  </div> 
+  <div class="subnav">
+    <button class="subnavbtn">Travel<i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#link1">Album</a>
+      <a href="#link2">Places</a>
+      <a href="#link3">Opinion</a>
+    </div>
+  </div>
+  <a href="#contact">Contact</a>
+</div>
+  <img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>
+  </div>
+</body>
+
+</html>

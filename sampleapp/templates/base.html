@@ -1,0 +1,52 @@
+<html>
+  <head>
+  </head>
+
+  <body>
+        {% block content %}
+              {% load static %}
+              <link rel="stylesheet" href="{% static 'style/style.css' %}"> 
+
+              <div class="navbar">
+              <a href="{% url 'home' %}">Home</a>
+              <div class="subnav">
+                <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="{% url 'academic' %}">Academic</a>
+                  <a href="{% url 'profesional' %}">Profesional</a>
+                  <a href="{% url 'personal' %}">Personal</a>
+                </div>
+              </div> 
+              <div class="subnav">
+                <button class="subnavbtn">Projects <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="{% url 'algorithm' %}">Algorithm Design</a>
+                  <a href="{% url 'predictive' %}">Predictive Modeling</a>
+                  <a href="{% url 'optimization' %}">Optimization Models</a>
+                  <a href="{% url 'machine' %}">Machine Learning</a>
+                </div>
+              </div> 
+              <div class="subnav">
+                <button class="subnavbtn">Travel<i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                  <a href="{% url 'album' %}">Album</a>
+                  <a href="{% url 'places' %}">Places</a>
+                  <a href="{% url 'opinion' %}">Opinion</a>
+                </div>
+              </div>
+            <a href="{% url 'contact' %}">Contact</a>
+          </div>
+        {% endblock %}
+   </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
