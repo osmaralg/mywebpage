@@ -7,9 +7,6 @@
 <meta charset="utf-8">
 <style>
 
-body {
-  align-content: "center";
-}
 
 path {
   fill: #ddd;
@@ -43,7 +40,7 @@ div.tooltip {
 
 </style>
 <body> 
-<div style="align-content: center">
+<div style="align-content: center; margin-left: 100px;">
 <h3> Traveling Sales Person Problem </h3>
 <p> The travelling salesman problem (also called the travelling salesperson problem[1] or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
 
@@ -94,6 +91,8 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
   });
 
   var selected_states = [];
+  var selected_states_index = [];
+  var city_routes = [];
   /***
 
 
@@ -119,13 +118,32 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
       d3.select(this)
         .style('fill', 'orange')
         selected_states.push(nodes[i])
+        selected_states_index.push(i)
+        console.log("index", selected_states_index)
         console.log("this", this)
         console.log("selected_states",  selected_states)
         console.log("nodes", nodes[i])
-        drawLine(selected_states)
+        city_routes = generateCityRoutes(selected_states_index)
+        console.log("city city_routes", city_routes)
+        j = 1;
+        k = 0;
+        for (var k = 0; k < city_routes.length; k ++){
+          
+          for (var j = 1; j < selected_states.length; j++){
+            var line = [];
+            console.log("k", k)
+            console.log("j", j)
+            line.push(nodes[city_routes[k][j-1]])
+            line.push(nodes[city_routes[k][j]])
+            drawLineV2(line)
+          }
+          
+        }
+        //drawLine(selected_states)
+        city_routes = [];
+        //console.log(generatePermutations(selected_states_index));
+        console.log(generateCityRoutes(selected_states_index));
 
-        console.log(generatePermutations([1,2,3]));
-        console.log(generateCityRoutes([0,1,2,3]));
     })
 
   var nodeselected = svg.select("g").style("color", "blue")
@@ -146,9 +164,16 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
 });
 
 
+function drawLineV2(nodes){
 
+   console.log("line nodes", nodes)
+   svg.append("line")
+      .attr("x1", function(d) {console.log(nodes[0].x); return  nodes[0].x})
+      .attr("y1", function(d) {console.log(nodes[0].y); return  nodes[0].y})
+      .attr("x2", function(d) {console.log(nodes[1].x); return  nodes[1].x})
+      .attr("y2", function(d) {console.log(nodes[1].y); return  nodes[1].y})
+}
 function drawLine(nodes){
-
     d3.geom.voronoi().links(nodes).forEach(function(link) {
     var dx = link.source.x - link.target.x,
         dy = link.source.y - link.target.y;
@@ -159,15 +184,13 @@ function drawLine(nodes){
   var link = svg.selectAll("line")
   .data(links)
   .enter().append("line")
-    .attr("x1", function(d) { return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
-
+    .attr("x1", function(d) { return d.x; })
+    .attr("y1", function(d) { return d.y; })
+    .attr("x2", function(d) { return d.x; })
+    .attr("y2", function(d) { return d.y; });
 }
 
-
-function generatePermutations(Arr){
+ function generatePermutations(Arr){
   var permutations = [];
   var A = Arr.slice();
 
