@@ -93,18 +93,6 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
   var selected_states = [];
   var selected_states_index = [];
   var city_routes = [];
-  /***
-
-
-  force
-      .gravity(0)
-      .nodes(nodes)
-      .links(links)
-      .linkDistance(function(d) { return d.distance; })
-      .start();
-  ***/
-
-
   
   var node = svg.selectAll("g")
     .data(nodes)
@@ -119,31 +107,29 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
         .style('fill', 'orange')
         selected_states.push(nodes[i])
         selected_states_index.push(i)
-        console.log("index", selected_states_index)
-        console.log("this", this)
-        console.log("selected_states",  selected_states)
-        console.log("nodes", nodes[i])
         city_routes = generateCityRoutes(selected_states_index)
         console.log("city city_routes", city_routes)
-        j = 1;
-        k = 0;
+        var route_distances = [];
         for (var k = 0; k < city_routes.length; k ++){
-          
-          for (var j = 1; j < selected_states.length; j++){
+          var route_distance = 0
+          console.log("selected_states length", selected_states.length)
+          for (var j = 1; j < selected_states.length + 1; j++){
             var line = [];
-            console.log("k", k)
-            console.log("j", j)
-            line.push(nodes[city_routes[k][j-1]])
-            line.push(nodes[city_routes[k][j]])
+            var city_u = nodes[city_routes[k][j-1]];
+            var city_v = nodes[city_routes[k][j]];
+            var city_distance = Math.sqrt(city_u.x * city_v.x + city_u.y + city_v.y)
+            console.log("city u", city_routes[k][j-1], " to city_v", city_routes[k][j])
+            console.log(city_distance)
+            route_distance += city_distance
+            line.push(city_u)
+            line.push(city_v)
             drawLineV2(line)
+            console.log("end ---------- of route")
           }
-          
-        }
-        //drawLine(selected_states)
-        city_routes = [];
-        //console.log(generatePermutations(selected_states_index));
-        console.log(generateCityRoutes(selected_states_index));
 
+          route_distances.push(route_distance)
+          console.log("route_distances", route_distances)
+        }
     })
 
   var nodeselected = svg.select("g").style("color", "blue")
@@ -163,31 +149,14 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
 
 });
 
-
 function drawLineV2(nodes){
 
    console.log("line nodes", nodes)
    svg.append("line")
-      .attr("x1", function(d) {console.log(nodes[0].x); return  nodes[0].x})
-      .attr("y1", function(d) {console.log(nodes[0].y); return  nodes[0].y})
-      .attr("x2", function(d) {console.log(nodes[1].x); return  nodes[1].x})
-      .attr("y2", function(d) {console.log(nodes[1].y); return  nodes[1].y})
-}
-function drawLine(nodes){
-    d3.geom.voronoi().links(nodes).forEach(function(link) {
-    var dx = link.source.x - link.target.x,
-        dy = link.source.y - link.target.y;
-    link.distance = Math.sqrt(dx * dx + dy * dy);
-    links.push(link);
-  });
-
-  var link = svg.selectAll("line")
-  .data(links)
-  .enter().append("line")
-    .attr("x1", function(d) { return d.x; })
-    .attr("y1", function(d) { return d.y; })
-    .attr("x2", function(d) { return d.x; })
-    .attr("y2", function(d) { return d.y; });
+      .attr("x1", nodes[0].x)
+      .attr("y1", nodes[0].y)
+      .attr("x2", nodes[1].x)
+      .attr("y2", nodes[1].y)
 }
 
  function generatePermutations(Arr){
@@ -214,7 +183,6 @@ function drawLine(nodes){
   return permutations;
 }
 
-
 function generateCityRoutes(cities){
   var pems = generatePermutations(cities.slice(1));
   for (var i = 0; i < pems.length; i++){
@@ -223,8 +191,6 @@ function generateCityRoutes(cities){
   }
   return pems;
 }
-
-
 
 
 </script>
