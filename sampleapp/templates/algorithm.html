@@ -71,9 +71,9 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
   if (error) throw error;
 
   var states = topojson.feature(us, us.objects.states),
-      nodes = [];
+      
   links = [];
-
+  nodes = [];
   states.features.forEach(function(d, i) {
     if (d.id === 2 || d.id === 15 || d.id === 72) return; // lower 48
     var centroid = path.centroid(d);
@@ -86,7 +86,7 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
 
   var selected_states = [];
   var selected_states_index = [];
-  var city_routes = [];
+  city_routes = [];
   
   var node = svg.selectAll("g")
     .data(nodes)
@@ -103,15 +103,10 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
         selected_states_index.push(i)
         city_routes = generateCityRoutes(selected_states_index)
         console.log("city city_routes", city_routes)
+        
+        animation_counter = 0;
+        animateRoutes(city_routes, nodes, selected_states);
 
-        var route_distances = drawRoute(city_routes, nodes, selected_states);
-
-        var shortest_index = indexOfMax(route_distances);
-        var shortest_route = city_routes[shortest_index];
-        svg.selectAll("line").remove()
-        console.log("shortest_route_index", shortest_index)
-        console.log("shortest_route", shortest_route)
-        drawRoute([shortest_route], nodes, selected_states)
 
     })
 
@@ -119,41 +114,60 @@ d3.json("{% static 'javascript/us.json' %}", function(error, us) {
   var nodeselected = svg.select("g").style("color", "blue")
 });
 
-function animateRoutes(){
-  
-}
-function timeout() {
-    setTimeout(function () {
+function animateRoutes(city_routes, nodes, selected_states){
+      setTimeout(function (city_routes, nodes, selected_states) {
         // Do Something Here
         // Then recall the parent function to
         // create a recursive loop.
-        timeout();
-    }, 1000);
+        console.log("city routes" ,city_routes)
+        if (animation_counter < city_routes.length - 1){
+          svg.selectAll("line").remove()
+          animation_counter ++;
+          console.log("animation_counter", animation_counter)
+          drawRoute([city_routes[animation_counter]], nodes, selected_states);
+          animateRoutes(city_routes, nodes, selected_states);
+        }
+        else{
+          svg.selectAll("line").remove()
+          var route_distances = calculateRouteDistances(city_routes, nodes, selected_states);
+          var shortest_index = indexOfMax(route_distances);
+          var shortest_route = city_routes[shortest_index];
+          drawRoute([shortest_route], nodes, selected_states)
+        }
+      }
+        , Math.round(500/city_routes.length), city_routes, nodes, selected_states);
 }
 
+function calculateRouteDistances(vertices, nodes, selected_nodes){
+      // for every link in every route get the euclidean distance
+      var route_distances = [];
+      for (var k = 0; k < vertices.length; k ++){ // routes
+        var route_distance = 0
+        for (var j = 1; j < selected_nodes.length + 1; j++){ // link
+          var city_u = nodes[vertices[k][j-1]];
+          var city_v = nodes[vertices[k][j]];
+          var city_distance = Math.sqrt(city_u.x * city_v.x + city_u.y * city_v.y)
+          route_distance += city_distance
+        }
+        route_distances.push(route_distance)
+      }
+      return route_distances
+}
 function drawRoute(vertices, nodes, selected_nodes) {
-  // body...
-    console.log("vertices", vertices)
-    console.log("selected_nodes", selected_nodes)
-    var route_distances = [];
+  // Given an array of vertices wich hold the index 
+  // nodes the coordinates of the city
+  // selected nodes = clicked states
+
     for (var k = 0; k < vertices.length; k ++){
-    var route_distance = 0
-    for (var j = 1; j < selected_nodes.length + 1; j++){
-      var line = [];
-      var city_u = nodes[vertices[k][j-1]];
-      var city_v = nodes[vertices[k][j]];
-      var city_distance = Math.sqrt(city_u.x * city_v.x + city_u.y * city_v.y)
-      route_distance += city_distance
-      line.push(city_u)
-      line.push(city_v)
-      drawLineV2(line)
-      
+      for (var j = 1; j < selected_nodes.length + 1; j++){
+        var line = [];
+        var city_u = nodes[vertices[k][j-1]];
+        var city_v = nodes[vertices[k][j]];
+        line.push(city_u)
+        line.push(city_v)
+        drawLineV2(line)
     }
-    console.log("end ---------- of route")
-    route_distances.push(route_distance)
-    console.log("route_distances", route_distances)
   }
-  return route_distances
 }
 
 function drawLineV2(nodes){
