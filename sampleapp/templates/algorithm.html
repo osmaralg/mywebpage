@@ -41,19 +41,28 @@ div.tooltip {
 <p>Jan. 30 2020</p>
 
 </div>
-<div style="border-style: inset; height: 70%" align="center" id="map_container"></div>
-<div>
-<p style="margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"> 
-<font size="8" >
-
-  My first map with d3js done by modifying http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
-  The travelling salesman problem (also called the travelling salesperson problem or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
-
-The travelling purchaser problem and the vehicle routing problem are both generalizations of TSP.
-
-In the theory of computational complexity, the decision version of the TSP (where given a length L, the task is to decide whether the graph has a tour of at most L) belongs to the class of NP-complete problems. Thus, it is possible that the worst-case running time for any algorithm for the TSP increases superpolynomially (but no more than exponentially) with the number of cities.
+<div style="display: flex; justify-content: center;  border-style: inset; height: 70%" align="center" id="map_container"></div>
+<div style="font-family: courier, monospace; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;">
+<font size="5" >
+<p> 
+  My first map with d3js done by modifying </p>
+  <p>
+  <a href=" http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922"> http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
+</a></p>
+<p>
+  The travelling salesman problem (also called the travelling salesperson problem or TSP) asks the following question: <p><strong> "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?"</strong> </p> It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.
 </p>
+<p>
+The travelling purchaser problem and the vehicle routing problem are both generalizations of TSP.
+</p>
+<p>
+In the theory of computational complexity, the decision version of the TSP (where given a length L, the task is to decide whether the graph has a tour of at most L) belongs to the class of NP-complete problems. Thus, it is possible that the worst-case running time for any algorithm for the TSP increases superpolynomially (but no more than <strong>exponentially </strong>) with the number of cities.
+</p>
+</font>
 </div>
+</div>
+<div style="margin-left: 100px; margin-right: 100px;">
+  {% include "algorithm_code.html" %}
 </div>
 </body>
 <script src="{% static 'javascript/d3.v3.min.js' %}" charset="utf-8"></script>
