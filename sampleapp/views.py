@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from .models import Project
 
 def home(request):
-    return render(request, 'home.html', {})
+
+    projects = Project.objects.all().order_by('created_on')
+    return render(request, 'home.html', {'projects': projects})
     
 def academic(request):
     return render(request, 'academic.html', {})

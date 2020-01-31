@@ -58,6 +58,7 @@ code {
 
 .navbar a:hover, .subnav:hover .subnavbtn {
   background-color: red;
+  transition: 0.4s;
 }
 
 .subnav-content {
@@ -78,10 +79,12 @@ code {
 .subnav-content a:hover {
   background-color: #eee;
   color: black;
+  transition: 0.4s;
 }
 
 .subnav:hover .subnav-content {
   display: block;
+  transition: 0.4s;
 }
 
 table {
@@ -98,4 +101,87 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+
+
+ul {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 120px;
+  -webkit-column-count: 4;
+     -moz-column-count: 4;
+          column-count: 4;
+       list-style-type: none;
+}
+
+li {
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+a {
+  display: block;
+  font-size: 0.9em;
+  text-decoration: none;
+  font-family: "courier";
+  padding-top: -40px;
+}
+
+img {
+  width: 300px;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform .2s;
+}
+
+img:hover{
+  -ms-transform: scale(1.02); /* IE 9 */
+  -webkit-transform: scale(1.02); /* Safari 3-8 */
+  transform: scale(1.02); 
+}
+
+.container {
+  position: relative;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-family: "courier";
+  font-weight: 700;
+}
+
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-family: "courier";
+  font-weight: 700;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

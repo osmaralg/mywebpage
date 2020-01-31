@@ -3,8 +3,34 @@
 {% block content %}
 	{% load static %}
 	<div align="center">
-	<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>
+	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
 
+{% block project_block %}
+<ul>
+	{% for i in '[1,2,3,4,1,1,1,' %}
+		<li>
+			<div class="container">
+				<a href="{% static 'img/field.jpg'%}">
+					<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>
+				</a>
+				<div class="bottom-left">Bottom Left</div>
+			</div>
+		</li>
+	{% endfor %}
+</ul>
+<ul>
+	{% for project in projects %}
+		<li>
+			<div class="container">
+				<a href="{{project.image}}">
+					<img src="{{project.image}}" alt='image of a field at dusk' %}/>
+				</a>
+				<div class="bottom-left">{{project.author}}</div>
+			</div>
+		</li>
+	{% endfor %}
+</ul>
+{% endblock %}
 {% endblock %}
 
 
