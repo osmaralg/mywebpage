@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import url
 from . import views
+from django.conf.urls.static import static # new
 
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
@@ -18,3 +19,6 @@ urlpatterns = [
 	url(r'^album/$', views.album, name='album'),
 	url(r'^machine/$', views.machine, name='machine'),
 ]
+
+if settings.DEBUG: # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

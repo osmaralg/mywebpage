@@ -29,7 +29,7 @@ DB_PSW = os.environ.get('DB_PSW')
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://osmaralg1.herokuapp.com',
-                 'https://osmaralg1.herokuapp.com/', 'osmaralg1.herokuapp.com']
+                 'https://osmaralg1.herokuapp.com/', 'osmaralg1.herokuapp.com', 'https://kit.fontawesome.com']
 
 # Application definition
 
@@ -130,6 +130,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
