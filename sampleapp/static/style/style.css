@@ -130,8 +130,16 @@ a {
   padding-top: -40px;
 }
 
-img {
+.mosaic_image{
   width: 300px;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform .2s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+img {
   overflow: hidden;
   z-index: 1;
   transition: transform .2s;
@@ -143,12 +151,25 @@ img:hover{
   transform: scale(1.02); 
 }
 
+.mosaic_image:hover{
+  -ms-transform: scale(1.02); /* IE 9 */
+  -webkit-transform: scale(1.02); /* Safari 3-8 */
+  transform: scale(1.02); 
+
+  align-content: center;
+}
+
+.shadow-box{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .container {
   position: relative;
   border-radius: 5px;
   text-align: center;
   color: white;
   overflow: hidden;
+
 }
 
 .bottom-left {
@@ -184,4 +205,23 @@ img:hover{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-box {
+  padding: 20px 20px;
+  font-family: courier, monospace;
+  margin-right: 25px;
+  margin-top: 5px;
+  font-size: 15px;
 }

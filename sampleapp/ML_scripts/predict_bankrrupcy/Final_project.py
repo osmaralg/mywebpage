@@ -23,33 +23,23 @@ from sklearn.utils import resample
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
+from style_functions import *
 
-def highlight_max(data, color='yellow'):
-    '''
-    highlight the maximum in a Series or DataFrame
-    '''
-    attr = 'background-color: {}'.format(color)
-    if data.ndim == 1:  # Series from .apply(axis=0) or axis=1
-        is_max = data == data.max()
-        return [attr if v else '' for v in is_max]
-    else:  # from .apply(axis=None)
-        is_max = data == data.max().max()
-        return pd.DataFrame(np.where(is_max, attr, ''),
-                            index=data.index, columns=data.columns)
+
 #credits https://towardsdatascience.com/predicting-bankruptcy-f4611afe8d2c
 
-d =pd.read_csv("bankruptcy_1.csv")
+d =pd.read_csv("bankruptcy.csv")
 #d = d.iloc[:, :-1]
 cols = pd.read_csv("ColumnNames.csv")
 #cols = cols.iloc[:, :]
-d.columns = cols.columns
+#d.columns = cols.columns
 label_column = "class"
 d[label_column].replace("b'0'", 0b0, inplace=True)
 d[label_column].replace("b'1'", 0b1, inplace=True)
 d.replace("?", np.nan, inplace=True)
 d.replace(r'', np.nan, inplace=True)
 d = d.replace(r'^\s+$', np.nan, regex=True)
-d = (d.drop(cols.columns, axis=1).join(d.apply(pd.to_numeric, errors='coerce')))
+#d = (d.drop(cols.columns, axis=1).join(d.apply(pd.to_numeric, errors='coerce')))
 d = d.astype(float)
 feature_columns = [c for c in d.columns if c != label_column]
 
@@ -80,10 +70,21 @@ plt.title("Pie chart showing imbalance in Dataset. \nOrange: Bankrupt , Blue: No
 print(d.describe().T.style.render())
 #d.style.apply(highlight_max, color='darkorange', axis=None)
 describe_table = d.describe().T.style.apply(highlight_max, color='red', axis=0).render()
-with open("describe_table.html", "w") as text_file:
-    text_file.write(describe_table)
-# Showing only partil data
-sns.pairplot(d.iloc[0:10, 0:10])
+save_str_to_file(describe_table, 'machine_code.html')
+# Showing only partial data
+
+
+cmap = cmap=sns.diverging_palette(5, 250, as_cmap=True)
+
+corr_map_str = d.corr()\
+.style.background_gradient(cmap, axis=None)\
+    .set_properties(**{'max-width': '80px', 'font-size': '1pt'})\
+    .set_caption("Hover to magnify")\
+    .set_precision(2)\
+    .set_table_styles(magnify()).render()
+
+save_str_to_file(corr_map_str, 'C:/Users/osmaralg/Desktop/mycompany/deploying-django-master/sampledeploy/sampleapp/templates/machine_corr_table.html')
+
 
 
 imp = SimpleImputer(missing_values=np.nan, strategy='most_frequent')

@@ -23,7 +23,17 @@
 The project data concerns a binary classification problem where you have to predict wether or not a company will go bankrupt, given some financial indicators.
 </p>
 <p>
-The data has 64 numerical features and one binary label (1 == bankrupt, 0 == not bankrupt). The dataset presents some typical real-life characteristics such as missing data, weird column names and feature values, correlated features, unbalanced classes, etc. Data analysis and preparation are part of the project... it's not all about prediction! :-)
+The data has 64 numerical features and one binary label
+</p>
+<strong>
+<p> 
+1 == bankrupt </p><p>
+0 == not bankrupt</p><p></strong>
+The dataset presents some typical real-life characteristics such as missing data, weird column names and feature values, correlated features, unbalanced classes, etc.
+</p>
+<p>
+ Data analysis and preparation are part of the project... it's not all about prediction
+</p>
 data source = https://archive.ics.uci.edu/ml/datasets/Polish+companies+bankruptcy+data#
 </p>
 </div>
@@ -35,9 +45,22 @@ data source = https://archive.ics.uci.edu/ml/datasets/Polish+companies+bankruptc
 
 </pre>
 </code>
-<div style="margin-left: 100px; margin-right: 100px">
+<div style="padding-bottom:100px; margin-left: 100px; margin-right: 100px">
 {% include "machine_code.html" %}
-</div>
+<p class="mytext">
+All missing values were filled with the average of the respective predictive
+attribute.
+</p>
+<hr>
+<div style="padding-top: 100px; margin-left: 100px; margin-right: 100px">
+{% include "machine_corr_table.html" %}
+<p class="mytext">
+Nothing was done in order to remove correlated attributes because forward
+feature selection is used in the modeling phase, a process that favors the
+removal of correlated attributes.
+
+
+</p>
 </body>
 
 
