@@ -97,7 +97,7 @@ from sklearn.feature_selection import SelectFromModel
 print("Original feature size")
 print("X.shape", X.shape)
 
-select_features = 0
+select_features = 1
 if select_features:
     lsvc = LinearSVC(penalty="l1", dual=False, C=0.0025, max_iter=10000).fit(X, y)
     model = SelectFromModel(lsvc, prefit=True)
@@ -122,90 +122,58 @@ classifiers = [
 scores = []
 
 #data split
-# Separate majority and minority classe
-from sklearn.utils import resample
-resampling = 0
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
 
-if resampling:
-    y_train = y_train.reshape(len(y_train),1)
-    data = np.concatenate((X_train, y_train), axis=1)
-    df_minority = data[data[:,-1] == 1]
-    df_mayority = data[data[:,-1] == 0]
+clf = LogisticRegression().fit(X_train,y_train)
+y_pred = clf.predict(X_test)
 
-    print("mayority class size", df_mayority.size)
-    print("minority class size", df_minority.size)
+# Model Evaluation metrics
+from sklearn.metrics import accuracy_score,recall_score,precision_score,f1_score
 
-    df_minority_upsampled = resample(df_minority,
-                                     replace=True,     # sample with replacement
-                                     n_samples=np.shape(df_mayority)[0],    # to match majority class
-                                     random_state=123) # reproducible results
+print('Accuracy Score : ' + str(accuracy_score(y_test,y_pred)))
+print('Precision Score : ' + str(precision_score(y_test,y_pred)))
+print('Recall Score : ' + str(recall_score(y_test,y_pred)))
+print('F1 Score : ' + str(f1_score(y_test,y_pred)))
 
-    print("upsample size", df_minority_upsampled.shape)
-    print("X_train original size", X_train.shape)
-    X_train = np.concatenate((df_mayority[:,0:-1], df_minority_upsampled[:,0:-1]))
-    y_train = np.concatenate((df_mayority[:, -1], df_minority_upsampled[:,-1]))
+#Logistic Regression Classifier Confusion matrix
+from sklearn.metrics import confusion_matrix
+print('Confusion Matrix : \n' + str(confusion_matrix(y_test,y_pred)))
+from sklearn.model_selection import GridSearchCV
+clf = LogisticRegression(max_iter=500000, solver='saga')
+grid_values = {'penalty': ['l1', 'l2'], 'C':[0.01,.09,1,5,9,10,11,25]}
+grid_clf_acc = GridSearchCV(clf, param_grid = grid_values,scoring = 'recall')
+grid_clf_acc.fit(X_train, y_train)
 
-    y_train = y_train.reshape(len(y_train),1)
-    data = np.concatenate((X_train, y_train), axis=1)
-    df_minority = data[data[:,-1] == 1]
-    df_mayority = data[data[:,-1] == 0]
+#Predict values based on new parameters
+y_pred_acc = grid_clf_acc.predict(X_test)
 
-    print("mayority class size", df_mayority.size)
-    print("minority class size", df_minority.size)
+# New Model Evaluation metrics
+print('Accuracy Score : ' + str(accuracy_score(y_test,y_pred_acc)))
+print('Precision Score : ' + str(precision_score(y_test,y_pred_acc)))
+print('Recall Score : ' + str(recall_score(y_test,y_pred_acc)))
+print('F1 Score : ' + str(f1_score(y_test,y_pred_acc)))
 
-    df_minority_upsampled = resample(df_minority,
-                                     replace=True,     # sample with replacement
-                                     n_samples=np.shape(df_mayority)[0],    # to match majority class
-                                     random_state=123) # reproducible results
+#Logistic Regression (Grid Search) Confusion matrix
+confusion_matrix(y_test,y_pred_acc)
 
-    print("upsample size", df_minority_upsampled.shape)
-    print("X_train original size", X_train.shape)
-    X_train = np.concatenate((df_mayority[:,0:-1], df_minority_upsampled[:,0:-1]))
-    y_train = np.concatenate((df_mayority[:, -1], df_minority_upsampled[:,-1]))
 
-    print("x train size", X_train.shape)
-    print("y_train_size", y_train.shape)
 
-from sklearn.neural_network import MLPClassifier
-clf = MLPClassifier(solver='lbfgs', alpha=1e-5, max_iter=10000,
-                    hidden_layer_sizes=(65, 5), random_state=1)
-model = clf.fit(X_train, y_train)
-print(model)
-print("F1 score: ", round(f1_score(y_test, model.predict(X_test)), 4))
-print(model.predict(X_test))
-
-fig, ax = plt.subplots(figsize=(8, 8))
 for name, clf in zip(names, classifiers):
     print("Training " , name + '...')
     model = make_pipeline(
         clf).fit(X_train, y_train)
     fprs, tprs, thresholds = roc_curve(y_test, model.predict_proba(X_test)[:, 1])
     roc_score = round(roc_auc_score(y_test, model.predict_proba(X_test)[:, 1]),4)
-    ax.plot(fprs, tprs, label=name + " " + str(roc_score))
-    ax.set_xlabel('False positive rate')
-    ax.set_ylabel('True positive rate')
-    ax.set_title(r"All models with thresholds $0, 0.05, 0.1, \ldots, 0.95, 1.0$");
-    ax.legend()
     print(name + " ROC_AUC_SCORE :", roc_score)
     print("F1 score: ", round(f1_score(y_test, model.predict(X_test)),4)) 
     print("Recall: ", round(recall_score(y_test, model.predict(X_test)),4)) 
     print("Precision: ", round(precision_score(y_test, model.predict(X_test)),4)) 
     print("------------------------------------------------------")
-
-plt.show()
-# # Model Selection
-
-# From above, we can see that most of the models have a good F1 score. However, the models with the top ROC-AUC score are AdaBoost and Random Forest. To decide the best between them, we perform K-Fold Cross Validation on these two models. In k-fold cross valdidation we take k = 10. We calculate both F1 score and ROC-AUC using the command cross_val_score. We chose the final model based only on the F1 score as our data is unbalanced. 
-
-# In[ ]:
+    cross_val_score(clf, X_train, y_train, scoring=score, cv=kfold)
 
 
-names = ["Decision Tree", "AdaBoost"]
 
-classifiers = [
-    DecisionTreeClassifier(max_depth=500, class_weight='balanced'),
-    AdaBoostClassifier()]
+
 
 scores = ['f1' , 'roc_auc', 'f1_micro']
 
@@ -225,31 +193,8 @@ for name, clf in zip(names, classifiers):
     print('----------------------------------------------------')
 
 
-# The best model is Adaboost. We evaulate the performance of the the winner model over the test set.
-
-# In[ ]:
 
 
-model = make_pipeline(
-    StandardScaler(), 
-    AdaBoostClassifier()
-).fit(X_train, y_train)
-
-from sklearn import preprocessing
-#scaler = preprocessing.StandardScaler().fit(X_train)
-#X_test = scaler.transform(X_test)
-print("Recall: ", round(recall_score(y_test, model.predict(X_test)),4))
-print("Precision: ", round(precision_score(y_test, model.predict(X_test)),4))
-print("F1 score: ", round(f1_score(y_test, model.predict(X_test)),4))
-print("ROC-AUC: ", round(roc_auc_score(y_test, model.predict_proba(X_test)[:, 1]),4))
-matrix = confusion_matrix(y_test, model.predict(X_test))
-print(matrix)
-
-
-# # Retrain the model with all data
-# In our final step, we train on the entire dataset with the winner model - Adaboost. This model is ready for production after re-training.  
-
-# In[ ]:
 
 
 model = make_pipeline(
