@@ -5,7 +5,11 @@ def home(request):
 
     projects = Project.objects.all().order_by('created_on')
     return render(request, 'home.html', {'projects': projects})
-    
+
+def test(request):
+    all_subjects = Project.objects.all().order_by('created_on')
+    return render(request, 'test.html', {"Predmeti": all_subjects})
+
 def academic(request):
     return render(request, 'academic.html', {})
 

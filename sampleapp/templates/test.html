@@ -1,0 +1,23 @@
+
+{% block content %}
+    {% if 1 %}
+        Hi {{ user.email }}!
+        <table>
+        {% for predmet in Predmeti %}
+
+            <tr>
+            <td>{{ predmet.title }}</td>
+
+            <td>
+
+            </td>
+            </tr>
+
+        {% endfor %}
+        </table>
+
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">login</a> |
+        <a href="{% url 'signup' %}">signup</a>
+    {% endif %}
+{% endblock %}

@@ -158,41 +158,6 @@ confusion_matrix(y_test,y_pred_acc)
 
 
 
-for name, clf in zip(names, classifiers):
-    print("Training " , name + '...')
-    model = make_pipeline(
-        clf).fit(X_train, y_train)
-    fprs, tprs, thresholds = roc_curve(y_test, model.predict_proba(X_test)[:, 1])
-    roc_score = round(roc_auc_score(y_test, model.predict_proba(X_test)[:, 1]),4)
-    print(name + " ROC_AUC_SCORE :", roc_score)
-    print("F1 score: ", round(f1_score(y_test, model.predict(X_test)),4)) 
-    print("Recall: ", round(recall_score(y_test, model.predict(X_test)),4)) 
-    print("Precision: ", round(precision_score(y_test, model.predict(X_test)),4)) 
-    print("------------------------------------------------------")
-    cross_val_score(clf, X_train, y_train, scoring=score, cv=kfold)
-
-
-
-
-
-scores = ['f1' , 'roc_auc', 'f1_micro']
-
-#data split
-
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-
-kfold = KFold(n_splits = 10, shuffle = True, random_state = 3)
-print("Cross Validation")
-for name, clf in zip(names, classifiers):
-    print("Training " , name + '...')
-    for score in scores:
-        Model_scores = cross_val_score(clf, X_train, y_train, scoring = score, cv = kfold)
-        avg = round(np.mean(Model_scores),4)
-        print("Scores: ", score , avg)
-    print('----------------------------------------------------')
-
-
 
 
 

@@ -19,7 +19,7 @@
 </div>
 <div class="mytext">
 <p> 
-<font size="6" >
+
 The project data concerns a binary classification problem where you have to predict wether or not a company will go bankrupt, given some financial indicators.
 </p>
 <p>
@@ -34,8 +34,14 @@ The dataset presents some typical real-life characteristics such as missing data
 <p>
  Data analysis and preparation are part of the project... it's not all about prediction
 </p>
-data source = https://archive.ics.uci.edu/ml/datasets/Polish+companies+bankruptcy+data#
+data source = 
+https://archive.ics.uci.edu/ml/datasets/Polish+companies+bankruptcy+data#
 https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html 
+https://towardsdatascience.com/predicting-bankruptcy-f4611afe8d2c
+https://www.ii.pwr.edu.pl/~tomczak/PDF/[MZSTJT].pdf
+
+All missing values were filled with the average of the respective predictive
+attribute.
 </p>
 </div>
 </div>
@@ -47,21 +53,64 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html
 </pre>
 </code>
 <div style="padding-bottom:100px; margin-left: 100px; margin-right: 100px">
-{% include "machine_code.html" %}
-<p class="mytext">
-All missing values were filled with the average of the respective predictive
-attribute.
-</p>
-<hr>
-<div style="padding-top: 100px; margin-left: 100px; margin-right: 100px">
-{% include "machine_corr_table.html" %}
+
+<div id="table-wrapper">
+  <div id="table-scroll">
+	{% include "machine_code.html" %}
+	</div>
+</div>
+
 <p class="mytext">
 Nothing was done in order to remove correlated attributes because forward
 feature selection is used in the modeling phase, a process that favors the
 removal of correlated attributes.
+</p>
+<hr>
+<div style="padding-top: 100px; margin-left: 100px; margin-right: 100px">
+{% include "machine_corr_table.html" %}
+</div>
+<p class="mytext">
 
+	Based on performance and training time, hypeparameter tunning was done for KNeighbors, Adaboost, and XGboost. 
+	The results of the Grid Search Cross Validation are shown in the following tables. 
 
 </p>
+
+<hr>
+<p class="mytext">
+
+</p>
+<div style="padding-top: 100px; margin-left: 100px; margin-right: 100px">
+
+	<p class="mytext", style="font-size: 15px;"> Kneighbors </p>
+	<div id="table-wrapper">
+  		<div id="table-scroll">
+			{% include "kneighbors.html" %}
+		</div>
+	</div>
+	<p class="mytext", style="font-size: 15px;"> Adaboost </p>
+		<p class="mytext", style="font-size: 15px;"> Kneighbors </p>
+	<div id="table-wrapper">
+  		<div id="table-scroll">
+			{% include "adaboost.html" %}
+		</div>
+	</div>
+
+	<p class="mytext", style="font-size: 15px;"> XGBoost </p>
+	{% include "xgboost.html" %}
+		<p class="mytext", style="font-size: 15px;"> Kneighbors </p>
+	<div id="table-wrapper">
+  		<div id="table-scroll">
+			{% include "xgboost.html" %}
+		</div>
+	</div>
+</div>
+<hr>
+Since there is x bankrupted banks and y non-bankrupted the selection criterion was recall. 
+
+XGBoost had the highest recall of x 
+
+
 </body>
 
 

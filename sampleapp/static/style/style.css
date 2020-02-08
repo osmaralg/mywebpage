@@ -87,16 +87,47 @@ code {
   transition: 0.4s;
 }
 
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:400px;
+  overflow:auto;  
+  margin-top:20px;
+}
+#table-wrapper table {
+  width:100%;
+    
+}
+
+
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:5;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+  display: block; 
+}
+
 table {
-  font-family: arial, sans-serif;
+  font-family: courier, sans-serif;
+  font-size: 10px;
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
+  height: 100px;       /* Just for the demo          */
+    
 }
 
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  max-height: 7px;
+  word-wrap: break-word
 }
 
 tr:nth-child(even) {

@@ -18,6 +18,8 @@ urlpatterns = [
 	url(r'^places/$', views.places, name='places'),
 	url(r'^album/$', views.album, name='album'),
 	url(r'^machine/$', views.machine, name='machine'),
+	url(r'^test/$', views.test, name='test'),
+
 ]
 
 if settings.DEBUG: # new
