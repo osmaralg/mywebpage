@@ -31,7 +31,11 @@ class ProjectView(FormView):
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        print("form valid")
+
+
+        project = form.save(commit=False)
+        project.save()
+
         return super().form_valid(form)
 
 def academic(request):
