@@ -1,0 +1,36 @@
+{% include 'base.html' %}
+
+{% block content %}
+	{% load static %}
+	<div align="center">
+	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
+
+		{% block project_block %}
+		<ul style="padding-bottom: 100px">
+			
+				<li>
+					<div class="mosaic-container">
+						<a href="{{project.image.url}}">
+							<img src="http://127.0.0.1:8000/{{project.image.url}}" alt='image of a field at dusk' %}/>
+						
+						<!--<div class="bottom-left">{{project.author.name}}</div>-->
+					</div>
+					<div>
+						<p style="font-size: 30px">{{project.title}}</p>
+					</div>
+					<div><p style="color: #999">{{project.created_on}}</p>
+						 <i class="fas fa-tags"> {{project.category.name}}</i> 
+					</div>
+					</a>
+				</li>
+			</ul>
+		<hr style="margin-left: 100px; margin-right: 100px">
+	</div>
+	
+{% endblock %}
+{% endblock %}
+
+
+
+
+

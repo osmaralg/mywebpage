@@ -1,0 +1,20 @@
+{% include 'base.html' %}
+
+{% block content %}
+	{% load static %}
+	<div align="center">
+	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
+
+		{% block project_block %}
+			<form enctype="multipart/form-data" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+	
+{% endblock %}
+{% endblock %}
+
+
+
+
+
