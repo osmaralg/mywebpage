@@ -4,7 +4,7 @@ from django.db import models
 class Project(models.Model):
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=42, default='No title')
-    website = models.URLField(max_length=200, null=True, blank=True)
+    url = models.CharField(max_length=42, null=True, blank=True)
     content = models.TextField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/')

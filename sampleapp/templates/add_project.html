@@ -2,14 +2,18 @@
 
 {% block content %}
 	{% load static %}
-	<div align="center">
+	
 	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
 
 		{% block project_block %}
-			<form enctype="multipart/form-data" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+		<div align="center" style="background-color: #eee">
+			<div class="div_wrapper">
+				<form enctype="multipart/form-data" method="post">{% csrf_token %}
+	    			{{ form.as_p }}
+	    			<input type="submit" value="Save">
+				</form>
+			</div>
+		</div>
 	
 {% endblock %}
 {% endblock %}
