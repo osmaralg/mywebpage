@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.views import generic
 from .models import Project
+from .forms import *
+from django.views.generic.edit import FormView
 
 def home(request):
 
@@ -9,6 +12,27 @@ def home(request):
 def test(request):
     all_subjects = Project.objects.all().order_by('created_on')
     return render(request, 'test.html', {"Predmeti": all_subjects})
+
+class ProjectDetail(generic.DetailView):
+    model = Project
+    template_name = 'project_detail.html'
+
+    def get_context_data(self, **kwargs):
+        this_project = Project.objects.get(id=self.kwargs['pk'])
+        context = super(ProjectDetail, self).get_context_data(**kwargs)
+
+        return context
+
+class ProjectView(FormView):
+    template_name = 'add_project.html'
+    form_class = ProjectForm
+    success_url = '/home/'
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        print("form valid")
+        return super().form_valid(form)
 
 def academic(request):
     return render(request, 'academic.html', {})

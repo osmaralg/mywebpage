@@ -3,8 +3,10 @@ from django.conf.urls import url
 from . import views
 from django.conf.urls.static import static # new
 
+
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
+	url(r'^home/$', views.home, name='home2'),
 	url(r'^academic/$', views.academic, name='academic'),
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^profesional/$', views.profesional, name='profesional'),
@@ -19,6 +21,8 @@ urlpatterns = [
 	url(r'^album/$', views.album, name='album'),
 	url(r'^machine/$', views.machine, name='machine'),
 	url(r'^test/$', views.test, name='test'),
+	url(r'^project_detail/(?P<pk>\d+)$', views.ProjectDetail.as_view(), name='project_detail'),
+	url(r'^new_project/$', views.ProjectView.as_view(), name='new_project')
 
 ]
 

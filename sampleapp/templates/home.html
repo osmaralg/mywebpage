@@ -11,7 +11,7 @@
 			{% for project in projects %}
 				<li>
 					<div class="mosaic-container">
-						<a href="{{project.image.url}}">
+						<a href="{% url 'project_detail' pk=project.pk %}">
 							<img class="mosaic_image" src="http://127.0.0.1:8000/{{project.image.url}}" alt='image of a field at dusk' %}/>
 						
 						<!--<div class="bottom-left">{{project.author.name}}</div>-->
