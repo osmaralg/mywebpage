@@ -1,0 +1,114 @@
+{% load static %}
+
+<style type="text/css">
+    line {
+    stroke: #999;
+  }
+</style>
+
+    <div id="map_container" class='chart-area'>
+      <div class='title'>Force-Direction Graph</div>
+      <svg class='chart'></svg>
+    </div>
+
+<script src="{% static 'javascript/d3.js' %}" charset="utf-8"></script>
+<script src="{% static 'javascript/d3.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'javascript/jquery.min.js' %}" charset="utf-8"></script>
+
+
+
+<script type="text/javascript">
+var url = "{% static 'javascript/miserables.json' %}";
+var width = 600;
+var height = 600;
+svg = d3.select("#map_container").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var circle = svg.append("ellipse")
+                         .attr("cx", 50)
+                         .attr("cy", 50)
+                         .attr("rx", 25)
+                         .attr("ry", 10);
+
+  d3.json(url, function(data) {
+
+  console.log(data)
+  const links = data.links.map(d => Object.create(d));
+  const nodes = data.nodes.map(d => Object.create(d));
+
+  const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id))
+      .force("charge", d3.forceManyBody())
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+var circles = svgContainer.selectAll("circle")
+                          .data(jsonCircles)
+                          .enter()
+                         .append("circle");
+
+var lins_lines = svg.selectAll("line")
+                    .data(links)
+                    .enter()
+                    .append("line")
+
+  link = svg.append("line")
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .attr("stroke-width", 3)
+    .selectAll("line")
+    .data(links);
+
+  var link_atrigbutes = link_lines
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .attr("stroke-width", 3)
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+
+  const node = svg.append("g")
+    .attr("stroke", "#bbb")
+    .attr("stroke-width", 1.5)
+    .attr("r", 5)
+    .attr("fill", "#000")
+  .selectAll("circle")
+  .data(nodes)
+
+  node
+      .attr("cx", d => d.x)
+      .attr("cy", d => d.y);
+
+    //.call(drag(simulation));
+  })
+
+
+  
+
+drag = simulation => {
+  
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
+  
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+  
+  return d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+}
+
+</script>
