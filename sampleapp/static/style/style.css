@@ -87,7 +87,6 @@ code {
   transition: 0.4s;
 }
 
-
 #table-wrapper {
   position:relative;
 }
@@ -134,7 +133,18 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+  background-color: rgba(240, 240, 240);
+}
+.grid-item {
+  
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
 
 ul {
   margin-left: 200px;
@@ -162,8 +172,10 @@ a {
 }
 
 .mosaic_image{
-  width: 90%;
-
+  max-width:230px;
+  min-height:95px;
+  width: auto;
+  height: 100;
   overflow: hidden;
   z-index: 1;
   transition: transform .2s;

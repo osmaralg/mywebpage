@@ -6,9 +6,9 @@
 	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
 
 		{% block project_block %}
-		<ul style="padding-bottom: 100px">
+		<div class="grid-container">
 			{% for project in projects %}
-				<li>
+				<div class="grid-item">
 					<div class="mosaic-container">
 						<a href="{% url 'project_detail' pk=project.pk %}">
 							<img class="mosaic_image" src="http://127.0.0.1:8000/{{project.image.url}}" alt='image of a field at dusk' %}/>
@@ -16,15 +16,15 @@
 						<!--<div class="bottom-left">{{project.author.name}}</div>-->
 					</div>
 					<div>
-						<p style="font-size: 30px">{{project.title}}</p>
+						<p style="font-size: 16px">{{project.title}}</p>
 					</div>
-					<div><p style="color: #999">{{project.created_on}}</p>
-						 <i class="fas fa-tags"> {{project.category.name}}</i> 
+					<div><p style="color: #999; font-size: 12px; text-align: left;">{{project.created_on}}</p>
+						 <i style="font-size: 12px; text-align: left;" class="fas fa-tags"> {{project.category.name}}</i> 
 					</div>
 					</a>
-				</li>
+				</div>
 			{% endfor %}
-		</ul>
+		</div>
 		<hr style="margin-left: 100px; margin-right: 100px">
 		<div style="padding-top: 100px"> 
 		<img src="{% static 'img/contributions.PNG' %}"/>
