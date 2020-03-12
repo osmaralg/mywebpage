@@ -8,4 +8,4 @@ from sampleapp.models import Project
 class ProjectSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Project
-		fields = ('title', 'content')
+		fields = '__all__'

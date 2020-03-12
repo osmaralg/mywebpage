@@ -27,9 +27,11 @@ DB_PSW = os.environ.get('DB_PSW')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://osmaralg1.herokuapp.com',
-                 'https://osmaralg1.herokuapp.com/', 'osmaralg1.herokuapp.com', 'https://kit.fontawesome.com']
+                 'https://osmaralg1.herokuapp.com/', 'osmaralg1.herokuapp.com', 'https://kit.fontawesome.com',
+                 'localhost:3000']
 
 # Application definition
 
@@ -41,12 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'sampleapp',
     'frontend',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    
+
 ]
 
 ROOT_URLCONF = 'sampledeploy.urls'
@@ -150,3 +158,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

@@ -2,7 +2,35 @@ from django.shortcuts import render
 from django.views import generic
 from .models import Project
 from .forms import *
+
 from django.views.generic.edit import FormView
+from rest_framework.generics import (ListAPIView,
+    RetrieveAPIView,
+    CreateAPIView,
+    DestroyAPIView,
+    UpdateAPIView)
+from .serializers import ProjectSerializer
+
+
+class ProjectListView(ListAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ProjectDetailView(RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ProjectCreateView(CreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ProjectDeleteView(DestroyAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ProjectUpdateView(UpdateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
 def home(request):
 
