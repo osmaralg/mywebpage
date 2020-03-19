@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Card } from 'antd';
+import CustomForm from '../components/Form'
 
 class ProjectDetail extends React.Component {
 
@@ -21,9 +22,16 @@ class ProjectDetail extends React.Component {
 
 	render (){
 		return (
+			<div>
 			<Card title={this.state.project.title}> 
 				<p>{this.state.project.content}</p>
 			</Card>
+			<CustomForm 
+				requestType="put"
+				projectID={this.props.match.params.projectID} 
+				btnText="Update" 
+				/>
+			</div>
 			)
 	}
 }

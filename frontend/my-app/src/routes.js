@@ -6,9 +6,8 @@ import ProjectDetail from './containers/ProjectDetailView';
 
 const BaseRouter  = () => (
 	<div>
-		<Route exac path='/projects' component={ProjectList} />
-		<Route exac path='/project/:projectID' component={ProjectDetail} />
-
+	<Route exact path='/project/:projectID' component={ProjectDetail} />
+	<Route exact path='/' component={ProjectList} />
 	</div>
 
 	);

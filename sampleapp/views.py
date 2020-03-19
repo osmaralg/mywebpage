@@ -13,7 +13,7 @@ from .serializers import ProjectSerializer
 
 
 class ProjectListView(ListAPIView):
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by('id')
     serializer_class = ProjectSerializer
 
 class ProjectDetailView(RetrieveAPIView):
@@ -102,5 +102,6 @@ def opinion(request):
 def album(request):
     return render(request,  'album.html', {})
 
+
 def contact(request):
-    return render(request,  'contact.html', {})
+    return render(request,  'academic.html', {})

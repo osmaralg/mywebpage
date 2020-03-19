@@ -1,5 +1,6 @@
 import React from 'react';
-import Projects from '../components/Project'
+import Projects from '../components/Project';
+import CustomForm from '../components/Form'
 import axios from 'axios';
 
 
@@ -28,7 +29,15 @@ class ProjectList extends React.Component {
 
 	render (){
 		return (
-			<Projects data={this.state.projects}/>
+			<div>
+				<Projects data={this.state.projects}/>
+				<br />
+				<h2> Create a project </h2>
+				<CustomForm 
+					requestType="post" 
+					projectID={null} 
+					btnText="Create" />
+			</div>
 			)
 	}
 }

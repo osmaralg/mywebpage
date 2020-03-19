@@ -1,52 +1,30 @@
 import React from 'react';
 import { List, Avatar } from 'antd';
+import FeaturedPost from './FeaturedPost';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 
+
+
+ 
 
 const Projects = (props) => {
 	return (
+	<div>
+	<React.Fragment>
+      <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            {props.data.map(post => (
+              <FeaturedPost key={post.title} post={post} />
+            ))}
+          </Grid>
 
-  <List
-    itemLayout="vertical"
-    size="large"
-    pagination={{
-      onChange: page => {
-        console.log(page);
-      },
-      pageSize: 3,
-    }}
-    dataSource={props.data}
-    footer={
-      <div>
-        <b>ant design</b> footer part
-      </div>
-    }
-    renderItem={item => (
-      <List.Item
-        key={item.title}
-        actions={[
+      </Container>
+    </React.Fragment>
 
-        ]}
-        extra={
-          <img
-            height={200}
-            width={200}
-            alt="logo"
-            src={item.image}
-          />
-        }
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={<a href={`project/${item.id}`}>{item.title}</a>}
-          description={item.description}
-        />
-        {item.content}
-      </List.Item>
-    )}
-  />
-
-		)
+	</div>
+	)
 }
 
 export default Projects;

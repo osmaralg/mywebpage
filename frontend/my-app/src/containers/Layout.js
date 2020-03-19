@@ -2,37 +2,44 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 
-const { Header, Content, Footer } = Layout;
+import classNames from "classnames";
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
+
+// @material-ui/icons
+
+// core components
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+//import Footer from "components/Footer/Footer.js";
+
+import Parallax from "components/Parallax/Parallax.js";
+
+
+const dashboardRoutes = ['hola', 'que'];
+const { Head, Content, Foot } = Layout;
 const CustomLayout = (props) => {
   return(
 
-            <Layout className="layout">
-              <Header>
-                <div className="logo" />
-                <Menu
-                  theme="dark"
-                  mode="horizontal"
-                  defaultSelectedKeys={['2']}
-                  style={{ lineHeight: '64px' }}
-                >
-                  <Menu.Item key="1"><Link to="/projects">Home</Link></Menu.Item>
-                  <Menu.Item key="2"><Link to="/projects">List</Link></Menu.Item>
-                  <Menu.Item key="3">About</Menu.Item>
+          <div>
+                <Header
+        color="transparent"
+        routes={dashboardRoutes}
+        rightLinks={<HeaderLinks />}
+        brand="osmaralg"
+        fixed
+        changeColorOnScroll={{
+          height: 400,
+          color: "white"
+        }}
 
-                </Menu>
-              </Header>
-              <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                  <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>List</Breadcrumb.Item>
-                </Breadcrumb>
+      />
+              <Parallax filter image={require("assets/img/landing-bg.jpg")} />
+
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                 {props.children}
                 </div>
-              </Content>
-              <Footer style={{ textAlign: 'center' }}></Footer>
-            </Layout>
+              </div>
     );
 }
-
 export default CustomLayout;
