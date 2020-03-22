@@ -1,12 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import { Card } from 'antd';
-import CustomForm from '../components/Form'
+import CustomForm from '../components/Form';
+import WorldMap from 'components/WorldMap.js';
+import ProjectDetailTag from 'containers/ProjectDetailTagView.js'
+import 'assets/css/App.css'
+
+function createMarkup(text) { return {__html: text}; };
+
 
 class ProjectDetail extends React.Component {
 
 	state = {
-		project : {},
+		project : {react_tag: 'foo'},
 	}
 
 	componentDidMount(){
@@ -21,17 +27,29 @@ class ProjectDetail extends React.Component {
 	}
 
 	render (){
+		const TagName = this.state.project.react_tag; 
+
 		return (
 			<div>
 			<Card title={this.state.project.title}> 
-				<p>{this.state.project.content}</p>
+			<div dangerouslySetInnerHTML={createMarkup(this.state.project.content)} />
+
+			
 			</Card>
+			<div className="row">
+			<div>
+				<ProjectDetailTag react_tag={this.state.project.react_tag} />
+			</div>
+			</div>
+			{/**
 			<CustomForm 
 				requestType="put"
 				projectID={this.props.match.params.projectID} 
 				btnText="Update" 
 				/>
+			**/}
 			</div>
+
 			)
 	}
 }

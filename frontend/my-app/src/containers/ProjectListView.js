@@ -32,11 +32,15 @@ class ProjectList extends React.Component {
 			<div>
 				<Projects data={this.state.projects}/>
 				<br />
-				<h2> Create a project </h2>
+
+				{/*
+									<h2> Create a project </h2>
 				<CustomForm 
 					requestType="post" 
 					projectID={null} 
-					btnText="Create" />
+					btnText="Create" /> */
+				}
+
 			</div>
 			)
 	}

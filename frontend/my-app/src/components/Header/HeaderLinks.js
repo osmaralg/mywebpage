@@ -19,8 +19,9 @@ import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
-import { FaBeer } from 'react-icons/fa';
+
 import { FaFacebook } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
 
 const useStyles = makeStyles(styles);
 
@@ -93,7 +94,7 @@ export default function HeaderLinks(props) {
             target="_blank"
             className={classes.navLink}
           >
-          <FaBeer  />
+          <FaLinkedin />
           </Button>
         </div>
       </ListItem>

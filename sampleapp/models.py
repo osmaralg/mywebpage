@@ -6,10 +6,12 @@ class Project(models.Model):
     title = models.CharField(max_length=42, default='No title')
     url = models.CharField(max_length=42, null=True, blank=True)
     content = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/')
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
+    react_tag = models.CharField(max_length=42, null=True, blank=True)
 
     def __str__(self):
         return self.title
