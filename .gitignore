@@ -1,2 +1,6 @@
 media/
 env/
+.vs/
+.vscode/
+node_modules/
+build/

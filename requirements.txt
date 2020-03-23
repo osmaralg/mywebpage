@@ -27,4 +27,4 @@ wrapt==1.10.11
 pillow==7.0
 dj-database-url
 psycopg2==2.8.4
-
+oauthlib==2.1.0
