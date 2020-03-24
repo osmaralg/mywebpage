@@ -32,7 +32,7 @@ export default function HeaderLinks(props) {
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
-          buttonText="Components"
+          buttonText="About"
           buttonProps={{
             className: classes.navLink,
             color: "transparent"
@@ -40,14 +40,14 @@ export default function HeaderLinks(props) {
           buttonIcon={Apps}
           dropdownList={[
             <Link to="/" className={classes.dropdownLink}>
-              All components
+              Academic
             </Link>,
             <a
               href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
               target="_blank"
               className={classes.dropdownLink}
             >
-              Documentation
+              Professional
             </a>
           ]}
         />
@@ -72,7 +72,7 @@ export default function HeaderLinks(props) {
         >
           <Button
             color="transparent"
-            href="https://www.facebook.com/CreativeTim?ref=creativetim"
+            href="https://www.facebook.com/osmar.alg"
             target="_blank"
             className={classes.navLink}
           >
@@ -84,13 +84,13 @@ export default function HeaderLinks(props) {
       <ListItem className={classes.listItem}>
         <div
           id="instagram-facebook"
-          title="Follow us on facebook"
+          title="Contact me on LinkedIn"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
             color="transparent"
-            href="https://www.facebook.com/CreativeTim?ref=creativetim"
+            href="https://www.linkedin.com/in/osmar-alexander-alcal%C3%A1-garc%C3%ADa-56094a109/"
             target="_blank"
             className={classes.navLink}
           >

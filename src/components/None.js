@@ -10,10 +10,7 @@ class ProjectDetailTag extends React.Component {
 
 
 
-		return (
-				<h1>Hey none</h1>
-
-			)
+		return (<h1></h1>)
 	}
 }
 

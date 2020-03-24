@@ -31,9 +31,7 @@ class ProjectDetail extends React.Component {
 		return (
 			<div>
 			<Card title={this.state.project.title}> 
-			<div dangerouslySetInnerHTML={createMarkup(this.state.project.content)} />
-
-			
+			<div id="react_container" />			
 			</Card>
 			<div className="row">
 			<div>

@@ -2,11 +2,10 @@
 
 {% block content %}
 	{% load static %}
-	
+
 	<!--<img src="{% static 'img/field.jpg' alt='image of a field at dusk' %}"/>-->
-			
+			<div id=project_detail>
 			<div style="align-content: left; margin-left: 150px; margin-top: 50px">
-				<h2> {{project.title}}</h2>
 				<p>Author {{project.author}}</p>
 				<p>{{project.created_on}}</p>
 			</div>
@@ -27,6 +26,13 @@
 	    				<p> {{project.content }}</p>
 	    			</font>
 	    		</div>
+	    	</div>
+
+	    	<script type="text/javascript">
+	    		
+	    		 	$("#project_detail").appendTo("#react_container");
+
+	    	</script>
 	
 		{% endblock %}
 {% endblock %}

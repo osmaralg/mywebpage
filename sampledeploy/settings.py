@@ -47,15 +47,14 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
     'rest_framework.authtoken',
 
     'sampleapp',
-    'frontend',
     'articles'
 ]
 
@@ -175,3 +174,5 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+ACCOUNT_EMAIL_REQUIRED = True

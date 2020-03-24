@@ -27,7 +27,7 @@ export default function FeaturedPost(props) {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href={`project/${post.id}`}>
+      <CardActionArea component="a" href={`project_detail_2/${post.id}`}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -38,7 +38,11 @@ export default function FeaturedPost(props) {
                 {post.created_on}
               </Typography>
               <Typography variant="subtitle1" paragraph>
-                {post.content.substring(0,80) + '...'}
+
+                {post.description ? 
+                  post.description.substring(0,80) || post.description + '...' 
+                  : null
+                }
               </Typography>
               <Typography variant="subtitle1" color="primary">
                 Continue reading...

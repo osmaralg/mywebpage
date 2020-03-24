@@ -4,42 +4,9 @@
             {% block content %}
               {% load static %}
               <script src="https://kit.fontawesome.com/2f0ebac5b9.js" crossorigin="anonymous"></script>
-              <link rel="stylesheet" href="{% static 'style/style.css' %}"> 
-
-              <div class="navbar">
-              <a href="{% url 'home' %}">Home</a>
-              <div class="subnav">
-                <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                  <a href="{% url 'academic' %}">Academic</a>
-                  <a href="{% url 'profesional' %}">Profesional</a>
-                  <a href="{% url 'personal' %}">Personal</a>
-                </div>
-              </div> 
-              <div class="subnav">
-                <button class="subnavbtn">Projects <i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                  <a href="{% url 'algorithm' %}">Algorithm Design</a>
-                  <a href="{% url 'predictive' %}">Predictive Modeling</a>
-                  <a href="{% url 'optimization' %}">Optimization Models</a>
-                  <a href="{% url 'machine' %}">Machine Learning</a>
-                </div>
-              </div> 
-              <div class="subnav">
-                <button class="subnavbtn">Travel<i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                  <a href="{% url 'album' %}">Album</a>
-                  <a href="{% url 'places' %}">Places</a>
-                  <a href="{% url 'opinion' %}">Opinion</a>
-                </div>
-              </div>
-            <a href="{% url 'contact' %}">Contact</a>
-              <div class="top-right">
-                <input class="search-box" type="text" placeholder="Search.." name="search">
-              </div>
-            <a href="{% url 'new_project' %}">New</a>
-            </div>
-          </div>
+              <script src="https://kit.fontawesome.com/2f0ebac5b9.js" crossorigin="anonymous"></script>
+              <script src="{% static 'javascript/jquery.min.js' %}"></script>
+              {% include 'index.html' %}
 
         {% endblock %}
   </head>
