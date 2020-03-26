@@ -7,6 +7,7 @@ import ArticleList from "./containers/ArticleListView";
 import ArticleDetail from "./containers/ArticleDetailView";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
+import Nothing from "./components/None"
 
 const BaseRouter = () => (
   <div>
@@ -16,6 +17,7 @@ const BaseRouter = () => (
     <Route exact path="/signup/" component={Signup} />{" "}
     <Route exact path='/project_detail_2/:projectID' component={ProjectDetail} />
 	<Route exact path='/' component={ProjectList} />
+	<Route exact path='/academic/' component={Nothing} />
   </div>
 );
 

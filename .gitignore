@@ -4,3 +4,4 @@ env/
 .vscode/
 node_modules/
 build/
+sampleapp/__pycache__/

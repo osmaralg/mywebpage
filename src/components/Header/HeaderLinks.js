@@ -39,14 +39,10 @@ export default function HeaderLinks(props) {
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/academic/" className={classes.dropdownLink}>
+            <a href={"/academic/"} className={classes.dropdownLink}>
               Academic
-            </Link>,
-            <a
-              href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
+            </a>,
+            <a href={"/professional/"} className={classes.dropdownLink}>
               Professional
             </a>
           ]}
