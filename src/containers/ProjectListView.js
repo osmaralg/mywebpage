@@ -30,7 +30,7 @@ const ProfilePicutre = (props) => {
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>Osmar Alcala</h3>
-                    <h6>DESIGNER</h6>
+                    <h6>FULL STACK DEVELOPER</h6>
                     {/**<Button justIcon link className={classes.margin5}>
                       <i className={"fab fa-twitter"} />
                     </Button>
@@ -46,10 +46,10 @@ const ProfilePicutre = (props) => {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+              Currently student of Data Analytics and Desicion Science in RWTH Aachen. I am a dedicated professional and curious about the world.
+               My main specializition data science which I have been doing with python. 
+               I really enjoy programming data visualization related topics, photography and mapping.
+                {" "}
               </p>
             </div>
           </div>
