@@ -10,7 +10,7 @@ class ProjectDetailTag extends React.Component {
 
 
 
-		return (<h1>hola</h1>)
+		return (<div></div>)
 	}
 }
 
