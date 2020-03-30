@@ -4,6 +4,7 @@ import { Card } from 'antd';
 import CustomForm from '../components/Form';
 import WorldMap from 'components/WorldMap.js';
 import None from 'components/None.js';
+import Game from 'components/TicTacToe.js';
 
 import 'assets/css/App.css'
 
@@ -13,6 +14,7 @@ class ProjectDetailTag extends React.Component {
         foo: None,
         WorldMap: WorldMap,
         none: None,
+        TicTacToe: Game,
     };
 	render (){
 		console.log(this.props.react_tag)
