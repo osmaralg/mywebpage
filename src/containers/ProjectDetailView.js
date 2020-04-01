@@ -16,7 +16,7 @@ class ProjectDetail extends React.Component {
 
 	componentDidMount(){
 		const projectID = this.props.match.params.projectID;
-		axios.get(`http://127.0.0.1:8000/project/${projectID}`)
+		axios.get(`/project/${projectID}`)
 			.then(res => {
 				this.setState({
 					project: res.data
