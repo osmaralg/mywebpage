@@ -19,7 +19,7 @@ class ProjectDetailTag extends React.Component {
 	render (){
 		console.log(this.props.react_tag)
 		const TagName =  this.components[this.props.react_tag || 'foo'];
-
+		console.log(TagName)
 		return (
 				<TagName  />
 

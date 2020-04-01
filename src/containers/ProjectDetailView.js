@@ -21,7 +21,7 @@ class ProjectDetail extends React.Component {
 				this.setState({
 					project: res.data
 				});
-				console.log(res.data)
+				console.log("resdata", res.data)
 			})
 	}
 
