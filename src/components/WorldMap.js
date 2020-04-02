@@ -28,7 +28,7 @@ class WorldMap extends Component {
       .map((d,i) => <svg><path
         key={"path" + i}
         d={pathGenerator(d)}
-        onClick={() => {
+        onMouseEnter={() => {
           this.props.onHover(d)
           const element =  <circle cx={projection(geoCentroid(d))[0]} cy={projection(geoCentroid(d))[1]} r="1" 
             style={{fill: this.props.hoverElement === d.id ? "#FCBC34" : "#FF0000", stroke: "black", strokeOpacity: 0.5 }} />
